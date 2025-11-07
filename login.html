@@ -8,12 +8,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
+        /* FIX 2: Box-sizing (Width ko predictable banane ke liye) */
+        * {
+            box-sizing: border-box;
+        }
+    
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            
-            /* Wahi 'abstract tech' wali image */
             background-image: url('https://st4.depositphotos.com/1101936/41207/i/450/depositphotos_412077522-stock-photo-rendering-open-space-office-interior.jpg');
-            
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -24,29 +26,17 @@
             min-height: 100vh;
         }
 
-        /* Glassmorphism Container */
         .container {
             background-color: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px); 
-            
             padding: 40px 30px;
             border-radius: 15px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            
             text-align: center;
-            
-            /* Responsive */
             width: 90%; 
             max-width: 370px;
-            
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-
-        .container:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
         }
 
         h2 {
@@ -56,7 +46,6 @@
             text-shadow: 1px 1px 4px rgba(0,0,0,0.4); 
         }
 
-        /* Input with Icons */
         .input-group {
             position: relative;
             margin-bottom: 20px;
@@ -71,10 +60,12 @@
             font-size: 1.1em;
         }
         
-        /* === YEH CSS AB AAPKE 'text' AUR 'password' INPUTS PAR LAGEGA === */
         form input[type="text"],
         form input[type="password"] {
-            width: calc(85% - 20px);
+            
+            /* FIX 3: Width ko 100% kiya gaya (Yeh main fix hai) */
+            width: 100%;
+            
             padding: 15px;
             padding-left: 50px; /* Icon ke liye jagah */
             border: 1px solid rgba(255, 255, 255, 0.3); 
@@ -98,7 +89,6 @@
             color: #fff;
         }
         
-        /* Icon ka color bhi focus par change hoga */
         form input[type="text"]:focus + i,
         form input[type="password"]:focus + i {
             color: #fff;
@@ -139,25 +129,21 @@
             text-decoration: underline;
         }
 
-        /* PHONE RESPONSIVE CODE */
+        /* PHONE RESPONSIVE CODE (Yeh pehle se tha) */
         @media (max-width: 480px) {
             .container {
                 padding: 30px 25px;
             }
-
             h2 {
                 font-size: 1.8em;
             }
-            
             form input[type="text"],
             form input[type="password"] {
                 font-size: 1em;
             }
-
             button {
                 font-size: 1.1em;
             }
-
             p {
                 font-size: 0.9em;
             }
