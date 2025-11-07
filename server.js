@@ -11,12 +11,13 @@ const app = express();
 const port = process.env.PORT || 3000; // Yeh hosting ke liye zaroori hai
 
 // 3. मिडलवेयर (Middleware) सेट करना
-app.use(express.json()); // JSON डेटा के लिए
-app.use(express.urlencoded({ extended: true })); // HTML फॉर्म डेटा के लिए
+app.use(express.json()); // JSON डेटा ke liye
+app.use(express.urlencoded({ extended: true })); // HTML फॉर्म डेटा ke liye
 app.use(express.static('.')); // 'index.html' aur 'login.html' files ke liye
 
-// 4. MongoDB से कनेक्ट करना (NAYA ATLAS LINK)
-mongoose.connect('mongodb+srv://8651142739rupesh_db_user:8651142739rupesh@cluster0.t9wiyb1.mongodb.net/userDatabase?appName=Cluster0')
+// 4. MongoDB से कनेक्ट करना (SAFE TAREEKA)
+// Humne password hata diya hai aur 'process.env.MONGO_URI' ka istemaal kar rahe hain
+mongoose.connect(process.env.MONGO_URI)
     .then(() => {
         console.log('MongoDB ATLAS से सफलतापूर्वक कनेक्ट हो गया!');
     })
