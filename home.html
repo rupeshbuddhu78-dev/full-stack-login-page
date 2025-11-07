@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Global Dynamics - Building The Future</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* --- 1. Basic Setup & Variables --- */
+        :root {
+            --primary-blue: #007BFF;
+            --primary-dark: #1a1a1a;
+            --secondary-dark: #222;
+            --text-light: #f4f4f4;
+            --text-dark: #333;
+            --text-muted: #666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            background-color: var(--text-light);
+            color: var(--text-dark);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        section {
+            padding: 4rem 0;
+        }
+
+        /* --- 2. Navigation Bar --- */
+        .navbar {
+            background-color: rgba(26, 26, 26, 0.9); /* Semi-transparent initially */
+            color: #fff;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+        
+        /* JS-added class for scrolled state */
+        .navbar.scrolled {
+            background-color: var(--primary-dark);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: 900; /* Bold/Hard Font */
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .navbar .logo span {
+            color: var(--primary-blue); /* Blue accent */
+        }
+
+        .navbar .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .navbar .nav-links li {
+            margin-left: 1.5rem;
+        }
+
+        .navbar .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        .navbar .nav-links a:hover,
+        .navbar .nav-links a.active {
+            color: var(--primary-blue);
+        }
+
+        .navbar .btn-contact {
+            background-color: var(--primary-blue);
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar .btn-contact:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+
+        /* Hamburger Menu Icon */
+        .menu-toggle {
+            display: none;
+            color: #fff;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+
+        /* --- 3. Hero Section (Bara Img) --- */
+        .hero {
+            /* This is where you put your big image */
+            background: 
+                linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), /* Dark overlay */
+                url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop'); /* Replace with your image URL */
+            
+            background-size: cover;
+            background-position: center;
+            height: 100vh; /* Full screen height */
+            color: #fff;
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 1rem;
+            /* We don't need margin-top since height is 100vh */
+        }
+
+        .hero-content h1 {
+            font-size: 3.8rem;
+            font-weight: 900; /* 'Hard' title */
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-blue);
+            color: #fff;
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.6);
+        }
+
+        /* --- 4. Services Section --- */
+        .services {
+            background: #fff;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3-column layout */
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card a {
+            text-decoration: none;
+            color: var(--primary-blue);
+            font-weight: 700;
+        }
+
+        /* --- 5. About Short Section --- */
+        .about-short {
+            background-color: var(--secondary-dark); /* 'Hard' dark section */
+            color: var(--text-light);
+            text-align: center;
+        }
+
+        .about-short h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .about-short p {
+            max-width: 700px;
+            margin: 0 auto 2rem auto;
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #fff;
+            border: 2px solid #fff;
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: #fff;
+            color: var(--secondary-dark);
+        }
+
+
+        /* --- 6. Footer --- */
+        .footer {
+            background-color: var(--primary-dark);
+            color: #888;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .footer .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer .social-links a {
+            color: #888;
+            margin-left: 1rem;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .footer .social-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        /* --- 7. Responsive Design (Media Queries) --- */
+        
+        /* For Tablets */
+        @media(max-width: 768px) {
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+
+            .service-grid {
+                grid-template-columns: 1fr; /* Stack services on top */
+            }
+
+            /* Mobile Menu */
+            .menu-toggle {
+                display: block; /* Show hamburger icon */
+            }
+
+            .navbar .nav-links {
+                display: none; /* Hide nav links by default */
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 65px; /* Height of navbar */
+                left: 0;
+                background-color: var(--primary-dark);
+                padding: 1rem 0;
+            }
+
+            /* JS-added class to show menu */
+            .navbar .nav-links.active {
+                display: flex;
+            }
+
+            .navbar .nav-links li {
+                margin: 1rem 0;
+                text-align: center;
+            }
+
+            .navbar .btn-contact {
+                display: block;
+                width: 80%;
+                margin: 1rem auto 0 auto;
+                text-align: center;
+            }
+
+            .footer .container {
+                flex-direction: column;
+            }
+
+            .footer .social-links {
+                margin-top: 1rem;
+            }
+        }
+
+        /* For Mobile Phones */
+        @media(max-width: 500px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .hero-content p {
+                font-size: 1rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="logo">APEX <span>GLOBAL</span></a>
+            <nav>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#" class="btn-contact">Contact Us</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle" id="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Building The Future, Today.</h1>
+            <p>Committed to solving the world's most complex engineering challenges.</p>
+            <a href="#" class="btn-primary">Explore Our Services</a>
+        </div>
+    </section>
+
+    <section class="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>What We Do</h2>
+                <p>Our Core Areas of Expertise</p>
+            </div>
+            
+            <div class="service-grid">
+                <div class="service-card">
+                    <h3>Artificial Intelligence</h3>
+                    <p>Advanced AI solutions for data-driven decision-making.</p>
+                    <a href="#">Learn More &rarr;</a>
+                </div>
+                <div class="service-card">
+                    <h3>Aerospace Engineering</h3>
+                    <p>Designing and implementing next-gen aerospace systems.</p>
+                    <a href="#">Learn More &rarr;</a>
+                </div>
+                <div class="service-card">
+                    <h3>Sustainable Energy</h3>
+                    <p>Innovative energy solutions for a cleaner planet.</p>
+                    <a href="#">Learn More &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-short">
+        <div class="container">
+            <h2>Pioneers in Innovation</h2>
+            <p>Apex Global Dynamics is more than just a company; it's an idea. With 20 years of experience, we are pushing the boundaries of technology. Our mission is to transform industries and create a better tomorrow.</p>
+            <a href="#" class="btn-secondary">Read Our Story</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Apex Global Dynamics. All Rights Reserved.</p>
+            <div class="social-links">
+                <a href="#">LinkedIn</a>
+                <a href="#">Twitter</a>
+                <a href="#">Facebook</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        // Wait for the DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- 1. Mobile Menu Toggle ---
+            const menuToggle = document.getElementById('menu-toggle');
+            const navLinks = document.getElementById('nav-links');
+
+            menuToggle.addEventListener('click', function() {
+                // Toggle the 'active' class on the nav-links list
+                navLinks.classList.toggle('active');
+
+                // Toggle the hamburger icon to a close icon (X)
+                const icon = menuToggle.querySelector('i');
+                if (icon.classList.contains('fa-bars')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+
+            // --- 2. Navbar Scroll Effect ---
+            const navbar = document.getElementById('navbar');
+
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) { // If user scrolls down more than 50px
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+        });
+    </script>
+
+</body>
+</html>
