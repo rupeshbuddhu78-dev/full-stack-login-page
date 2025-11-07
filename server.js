@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 // User model ko import karna
-const User = require('./models/User.js');
+const User = require('./User.js');
 
 // 2. एक्सप्रेस ऐप बनाना
 const app = express();
@@ -74,3 +74,4 @@ app.listen(port, () => {
     // Port number ab dynamic ho gaya hai
     console.log(सर्वर port ${port} पर chal raha hai);
 });
+
