@@ -1,22 +1,19 @@
-// 1. ज़रूरी लाइब्रेरी को इम्पोर्ट करना
+
 const express = require('express');
 const mongoose = require('mongoose');
 
-// User model ko import karna
+
 const User = require('./User.js');
 
-// 2. एक्सप्रेस ऐप बनाना
 const app = express();
-// HOSTING KE LIYE PORT BADLAAV
-const port = process.env.PORT || 3000; // Yeh hosting ke liye zaroori hai
 
-// 3. मिडलवेयर (Middleware) सेट करना
-app.use(express.json()); // JSON डेटा ke liye
-app.use(express.urlencoded({ extended: true })); // HTML फॉर्म डेटा ke liye
-app.use(express.static('.')); // 'index.html' aur 'login.html' files ke liye
+const port = process.env.PORT || 3000;
 
-// 4. MongoDB से कनेक्ट करना (SAFE TAREEKA)
-// Humne password hata diya hai aur 'process.env.MONGO_URI' ka istemaal kar rahe hain
+app.use(express.json());
+app.use(express.urlencoded({ extended: true })); 
+app.use(express.static('.'));
+
+
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
         console.log('MongoDB ATLAS से सफलतापूर्वक कनेक्ट हो गया!');
@@ -25,9 +22,7 @@ mongoose.connect(process.env.MONGO_URI)
         console.error('MongoDB Atlas से कनेक्ट नहीं हो सका:', err);
     });
 
-// 5. API Routes (Endpoints)
 
-// ### Register Route ###
 app.post('/register', async (req, res) => {
     try {
         const { username, email, password } = req.body;
@@ -69,9 +64,9 @@ app.post('/login', async (req, res) => {
     }
 });
 
-// 6. सर्वर को 'सुनना' (Start) करना
+ा
 app.listen(port, () => {
-    // Port number ab dynamic ho gaya hai
+   
     console.log(`सर्वर port ${port} पर chal raha hai`);
 });
 
